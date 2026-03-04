@@ -40,7 +40,7 @@
                 <h1 class="text-3xl md:text-5xl font-bold gradient-text tracking-tight">OptiPic</h1>
             </div>
             <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-                Compress heavy pics or upscale tiny ones to the perfect ~700KB size. <br class="hidden md:block" /> Fast, private, and aesthetic af. ✨
+                Compress heavy pics or upscale tiny ones to under 499KB. <br class="hidden md:block" /> Fast, private, and aesthetic af. ✨
             </p>
         </div>
 
@@ -114,8 +114,8 @@
 
     <script>
         // Core Logic
-        const TARGET_SIZE = 700 * 1024; // Target 700KB
-        const TOLERANCE = 50 * 1024; // Toleransi +/- 50KB
+        const TARGET_SIZE = 480 * 1024; // Target 480 KB (agar di bawah 499 KB)
+        const TOLERANCE = 18 * 1024; // Toleransi +/- 18 KB
         let currentFile = null;
         let currentFormat = 'image/jpeg';
         let isProcessing = false;
@@ -226,7 +226,7 @@
                 const ctx = canvas.getContext('2d');
                 
                 let minScale = 0.1;
-                let maxScale = file.size < 500 * 1024 ? 4.0 : 2.0;
+                let maxScale = file.size < 300 * 1024 ? 4.0 : 2.0;
                 let currentScale = 1.0;
                 let currentQuality = 0.92;
                 let bestBlob = null;
@@ -266,7 +266,7 @@
                 const finalUrl = URL.createObjectURL(finalBlob);
                 
                 optImg.src = finalUrl;
-                optSize.innerHTML = `${formatBytes(finalBlob.size)} ${Math.abs(finalBlob.size - TARGET_SIZE) < 100 * 1024 ? '✅' : ''}`;
+                optSize.innerHTML = `${formatBytes(finalBlob.size)} ${Math.abs(finalBlob.size - TARGET_SIZE) < 30 * 1024 ? '✅' : ''}`;
                 
                 // Update Download Link
                 const ext = format.split('/')[1];
